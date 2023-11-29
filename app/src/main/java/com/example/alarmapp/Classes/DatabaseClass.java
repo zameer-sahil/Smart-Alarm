@@ -17,24 +17,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseClass extends SQLiteOpenHelper {
-    public static final String DBName = "DB2";
-    public static final int version = 1;
-    public static final String tableName = "AlarmTable";
+    public static final String DBName = "DB4";
+    public static final int version = 3;
+    public static final String tableName = "AlarmTable2";
     public static final String id = "id";
-    public static final String hour = "hour";
-    public static final String min = "min";
-    public static final String am = "am";
-    public static final String year = "year";
-    public static final String month = "month";
-    public static final String day = "day";
+    public static final String time = "time";
+    public static final String result = "isOn";
     public static final String createTable = "create table if not exists "+tableName
             +" ( " +id+"  INTEGER PRIMARY KEY Autoincrement, "
-            +hour+" INTEGER , "
-            +min+" INTEGER , "
-            +am+" TEXT , "
-            +year+" INTEGER  , "
-            +month+" INTEGER, "
-            +day+" INTEGER );";
+            +time+" INTEGER unique," + result+ " Boolean );";
 
 
 

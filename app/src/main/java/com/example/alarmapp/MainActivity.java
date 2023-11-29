@@ -1,6 +1,8 @@
 package com.example.alarmapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,8 +35,14 @@ import com.example.alarmapp.Classes.RecyclerView2;
 import com.example.alarmapp.Interfaces.MysqlDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.Random;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,19 +56,23 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SQLiteOpenHelper obj;
     MySqlClass mySqlClass ;
-    @SuppressLint("MissingInflatedId")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint({"MissingInflatedId", "ScheduleExactAlarm"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionButton = findViewById(R.id.floatingActionButton);
-        frameLayout = findViewById(R.id.frame);
+
         recyclerView = findViewById(R.id.recyle);
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
         actionButton.setVisibility(View.VISIBLE);
         list = new LinkedList<ModelClass>();
+        // Set default night mode based on system setting
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
 
         obj = new DatabaseClass(this);
         mySqlClass = new MySqlClass(this);
@@ -85,38 +97,54 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor cursor = mySqlClass.getCursor();
 
-        Calendar[] calendar = new Calendar[cursor.getCount()];
-        AlarmManager[] alarmManagers = new AlarmManager[cursor.getCount()];
-        Intent[] intent = new Intent[cursor.getCount()];
-        PendingIntent[] pendingIntent = new PendingIntent[cursor.getCount()];
-        long[] time = new long[cursor.getCount()];
+        Calendar calendar ;
+        AlarmManager alarmManagers;
+        PendingIntent pendingIntent;
         int i=-1, j=-1;
 
         while (cursor.moveToNext()) {
 
             i++;
-            int h = cursor.getInt(0);
-            int min = cursor.getInt(1);
-            String am = cursor.getString(2);
-            int d = cursor.getInt(5);
-            int m =cursor.getInt(4);
-            int y = cursor.getInt(3);
-            Toast.makeText(this, i+", ", Toast.LENGTH_SHORT).show();
-            list.add(new ModelClass(h, min, am, y, m+1, d));
-            calendar[i] = Calendar.getInstance();
-            calendar[i].set(y, m, d, h, m, 0);
-            intent[i] = new Intent(MainActivity.this, MyBroadcastRec.class);
-            alarmManagers[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
-        }
-        for(int k=0; k<cursor.getCount(); k++)
-        {
+            LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli((cursor.getLong(0))), ZoneId.systemDefault());
+            int y = dateTime.getYear();
+            int m = dateTime.getMonthValue();
+            int d = dateTime.getDayOfMonth();
+            int h = dateTime.getHour();
+            int min = dateTime.getMinute();
+            int intValue = cursor.getInt(1);
 
-            time[k] = calendar[k].getTimeInMillis();
-            pendingIntent[k] = PendingIntent.getBroadcast(MainActivity.this, k, intent[k], PendingIntent.FLAG_MUTABLE);
-            alarmManagers[k].setRepeating(alarmManagers[k].RTC_WAKEUP,time[k], alarmManagers[k].INTERVAL_DAY, pendingIntent[k]);
+            // Convert the integer value to a boolean
+            boolean booleanValue = (intValue == 1);
+            if (h>12)
+                h = h-12;
+            else if(h==0)
+                h+=12;
+            if (m>12)
+                m-=12;
+            else if(m==0)
+                m+=1;
+            String am = dateTime.format(DateTimeFormatter.ofPattern("a"));
+
+                list.add(new ModelClass(h, min, am, y, m, d, (cursor.getLong(0)), booleanValue));
+//            calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(cursor.getLong(0));
+//            Intent intent1= new Intent(MainActivity.this, MyBroadcastRec.class);
+//            intent1.putExtra("time", calendar.getTimeInMillis());
+//            alarmManagers = (AlarmManager) getSystemService(ALARM_SERVICE);
+//            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, i, intent1, PendingIntent.FLAG_MUTABLE);
+//                alarmManagers.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+//            if (booleanValue)
+//            {
+//                alarmManagers.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+//            }
+//            else
+//                alarmManagers.cancel(pendingIntent);
         }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerClass = new RecyclerView2(list, this);
+        recyclerClass.notifyDataSetChanged();
         recyclerView.setAdapter(recyclerClass);
 
         
@@ -128,4 +156,6 @@ public class MainActivity extends AppCompatActivity {
         System.exit(0
         );
     }
+
+
 }

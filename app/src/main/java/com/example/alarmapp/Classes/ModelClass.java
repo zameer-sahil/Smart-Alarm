@@ -7,6 +7,19 @@ public class ModelClass {
    private int year;
    private int month;
    private int day;
+   private long time;
+   private boolean isOn;
+
+    public ModelClass(int hour, int min, String am, int year, int month, int day, long time, boolean isOn) {
+        this.hour = hour;
+        this.min = min;
+        this.am = am;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.time = time;
+        this.isOn = isOn;
+    }
 
     public int getHour() {
         return hour;
@@ -56,12 +69,19 @@ public class ModelClass {
         this.day = day;
     }
 
-    public ModelClass(int hour, int min, String am, int year, int month, int day) {
-        this.hour = hour;
-        this.min = min;
-        this.am = am;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public boolean isOn() {
+        return isOn;
+    }
+
+    public void setOn(boolean on) {
+        isOn = on;
     }
 }

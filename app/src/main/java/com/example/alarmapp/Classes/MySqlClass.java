@@ -15,46 +15,49 @@ public class MySqlClass {
          myhelper = new DatabaseClass(context);
     }
 
-    public void insertData(int h, int m, String am, int y, int mon, int d)
+    public void insertData(long d, boolean res)
     {
 
             SQLiteDatabase dbb = myhelper.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
-            contentValues.put(DatabaseClass.hour, h);
-            contentValues.put(DatabaseClass.min, m);
-            contentValues.put(DatabaseClass.am, am);
-            contentValues.put(DatabaseClass.year, y);
-            contentValues.put(DatabaseClass.month, mon);
-            contentValues.put(DatabaseClass.day, d);
+
+            contentValues.put(DatabaseClass.time, d);
+        contentValues.put(DatabaseClass.result, res);
 
             dbb.insert(DatabaseClass.tableName, null , contentValues);
 
     }
-    public void deleteData(int h, int m, String am, int d)
+    public void deleteData(long d)
     {
         SQLiteDatabase db = myhelper.getWritableDatabase();
-        db.delete(DatabaseClass.tableName, "hour = ? AND min = ? AND am = ? AND day = ?", new String[]{Integer.toString(h), Integer.toString(m), am, Integer.toString(d)});
+        db.delete(DatabaseClass.tableName, " time = ?", new String[]{String.valueOf(d)});
     }
-    public void update(int h, int m, String am, int d, int hour, int min, String am_pm, int year, int month, int day)
+    public void update(long day, long d, boolean res)
     {
         SQLiteDatabase dbb = myhelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseClass.hour, hour);
-        contentValues.put(DatabaseClass.min, min);
-        contentValues.put(DatabaseClass.am, am_pm);
-        contentValues.put(DatabaseClass.year, year);
-        contentValues.put(DatabaseClass.month, month);
-        contentValues.put(DatabaseClass.day, day);
+        contentValues.put(DatabaseClass.time, day);
+        contentValues.put(DatabaseClass.result, res);
 
-        dbb.update(DatabaseClass.tableName, contentValues , "hour = ? AND min = ? AND am = ? AND day = ?", new String[]{Integer.toString(h), Integer.toString(m), am, Integer.toString(d)});
+        dbb.update(DatabaseClass.tableName, contentValues , "time = ?", new String[]{String.valueOf(d)});
+        dbb.close();
+    }
+
+    public void updateSwitch(long day, boolean res)
+    {
+        SQLiteDatabase dbb = myhelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseClass.result, res);
+
+        dbb.update(DatabaseClass.tableName, contentValues , "time = ?", new String[]{String.valueOf(day)});
+        dbb.close();
     }
     public Cursor getCursor()
     {
             SQLiteDatabase db = myhelper.getReadableDatabase();
-            String[] col = {DatabaseClass.hour, DatabaseClass.min, DatabaseClass.am,
-                    DatabaseClass.year, DatabaseClass.month, DatabaseClass.day};
+            String[] col = {DatabaseClass.time, DatabaseClass.result};
             Cursor  cursor = db.query(DatabaseClass.tableName, col,
-                    null,null, null, null, "hour ASC");
+                    null,null, null, null, "time ASC");
             return cursor;
     }
 

@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--    -->
+    <color name="primary">#1f0d22</color> <!-- Deep Orange -->
+    <color name="colorPrimaryDark">#c7006e </color> <!-- Dark Deep Orange -->
+    <color name="colorAccent">#f66050</color> <!-- Pink -->
+
+    <color name="secondary">#01579B</color> <!-- Deep Orange -->
+    <color name="colorSecondaryDark">#f47100 </color> <!-- Dark Deep Orange -->
+    <color name="colorSecondaryAccent">#0091EA</color> <!-- Pink -->
+
 </resources>

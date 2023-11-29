@@ -5,17 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/primary"
     tools:context=".Activities.SetAlramActivity">
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <TimePicker
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMain22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_centerHorizontal="true"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:title="Set Alarms"
+        app:titleTextColor="#FFFFFF" />
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="80dp"
+    android:backgroundTint="#1BB5AEB6"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:scaleX="1.5"
+        android:layout_centerHorizontal="true"
         android:id="@+id/timePicker"
+        android:background="@drawable/shape_round"
         android:scaleY="1"
         android:timePickerMode="spinner">
 
@@ -26,15 +53,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_below="@id/timePicker"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-
+        android:layout_below="@id/textDate"
         android:orientation="horizontal">
 
         <TextView
@@ -45,7 +73,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="M"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tue"
@@ -55,7 +83,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="T"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/wed"
@@ -65,7 +93,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="W"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/thu"
@@ -75,7 +103,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="T"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/fri"
@@ -85,7 +113,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="F"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/sat"
@@ -95,7 +123,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="S"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/sun"
@@ -114,34 +142,37 @@
             android:layout_height="wrap_content"
             android:layout_gravity="clip_horizontal|center|center_horizontal|fill_horizontal|center_vertical|fill_vertical|end"
             android:layout_weight="1"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/white"
             android:src="@drawable/ic_outline_keyboard_24" />
 
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:ems="10"
-        android:hint="Alarm name"
-        android:inputType="textPersonName" />
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTextPersonName"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Alarm name"-->
+<!--        android:inputType="textPersonName" />-->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="10dp"
+        android:layout_below="@id/textDate"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/liner3"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -149,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Alarm Sound"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
@@ -157,123 +188,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Homecoming"
-                android:textColor="@color/purple_500" />
+
+                android:textColor="@color/white" />
         </LinearLayout>
 
-        <Switch
+        <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            app:textOn="ON"
+            app:textOff="OFF"
+            app:colorOn="@color/colorSecondaryAccent"
+            android:layout_alignParentRight="true"
+            app:on="false"
+            />
 
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/black" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
+        <View
+            android:id="@+id/view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/liner3"
+            android:layout_marginRight="10dp"
+            android:background="@color/white" />
 
-            <TextView
-                android:id="@+id/vibration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Vibration"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/off"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Off"
-                android:textColor="@color/purple_500" />
-        </LinearLayout>
 
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/black" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/snooze"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Snooze"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/min"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="5 minutes"
-                android:textColor="@color/purple_500" />
-        </LinearLayout>
-
-        <Switch
-            android:id="@+id/switch3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom|center|center_horizontal"
         android:gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/ringLinear"
         android:orientation="horizontal">
 
         <Button
@@ -281,8 +232,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorSecondaryAccent"
             android:text="cancel" />
 
         <Button
@@ -290,10 +243,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="30dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorSecondaryAccent"
             android:layout_weight="1"
             android:text="OK" />
     </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/round_border.xml -->
+<!-- res/drawable/round_border.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Border shape -->
+    <item android:right="4dp" android:left="4dp" android:top="4dp" android:bottom="4dp">
+        <shape android:shape="rectangle" android:tintMode="screen">
+            <corners android:radius="300dp">
+            </corners>
+            <stroke android:width="5dp" android:color="#E50707"> </stroke>
+          <!-- Border color -->
+        </shape>
+    </item>
+
+    <!-- Background shape with rounded corners -->
+
+</layer-list>
+
